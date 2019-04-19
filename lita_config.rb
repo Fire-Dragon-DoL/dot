@@ -1,6 +1,6 @@
 Lita.configure do |config|
   # The name your robot will use.
-  config.robot.name = "Lita"
+  config.robot.name = "Dot"
 
   # The locale code for the language to use.
   # config.robot.locale = :en
@@ -9,6 +9,7 @@ Lita.configure do |config|
   # :debug, :info, :warn, :error, :fatal
   # Messages at the selected level and above will be logged.
   config.robot.log_level = :info
+  config.robot.admins = ["DHPN1G9H8"]
 
   # An array of user IDs that are considered administrators. These users
   # the ability to add and remove other users from authorization groups.
@@ -17,15 +18,19 @@ Lita.configure do |config|
 
   # The adapter you want to connect with. Make sure you've added the
   # appropriate gem to the Gemfile.
-  config.robot.adapter = :shell
+  config.robot.adapter = :slack
+  config.adapters.slack.token = "xoxb-615309095750-606850229585-jwX5oR8zbb9qqVAjikxnKBU8"
+  config.adapters.slack.link_names = true
+  config.adapters.slack.parse = "full"
+  config.adapters.slack.unfurl_links = true
+  config.adapters.slack.unfurl_media = true
 
   ## Example: Set options for the chosen adapter.
   # config.adapter.username = "myname"
   # config.adapter.password = "secret"
 
   ## Example: Set options for the Redis connection.
-  # config.redis.host = "127.0.0.1"
-  # config.redis.port = 1234
+  config.redis = { host: "127.0.0.1", port: 6379 }
 
   ## Example: Set configuration for any loaded handlers. See the handler's
   ## documentation for options.

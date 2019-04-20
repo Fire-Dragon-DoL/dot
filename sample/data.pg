@@ -1,3 +1,5 @@
+-- heroku pg:psql --app APP_NAME < sample.pg
+
 CREATE TABLE button_click (
   id serial PRIMARY KEY,
   "uuid" VARCHAR(37),

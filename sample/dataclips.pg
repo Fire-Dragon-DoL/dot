@@ -1,8 +1,8 @@
--- Highest source of clicks all time
+-- Top source of clicks all time
 SELECT button_id, SUM(clicks) AS clicks FROM button_click GROUP BY button_id ORDER BY clicks DESC LIMIT 10;
 
--- Highest source of clicks in one day
+-- Top source of clicks in a single day
 SELECT button_id, SUM(clicks) as clicks FROM button_click GROUP BY button_id, date(created_date) ORDER BY clicks DESC LIMIT 10;
 
--- Most used browsers per device all time
+-- Top browsers per device all time
 SELECT concat(user_agent, ' - ', user_device_type) as browser, SUM(loads) as loads FROM page_load GROUP BY browser ORDER BY loads DESC LIMIT 10;

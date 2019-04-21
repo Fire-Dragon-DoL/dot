@@ -7,7 +7,7 @@ module Lita
       config :reddit_comments_url
       config :requests_over_time_by_city_url
 
-      route(/clicks/, command: true) do |response|
+      route(/top\ssources\sof\sclicks/) do |response|
         url = config.top_clicks_all_time_url
         http_response = HTTParty.get(url, follow_redirects: true)
         data = MultiJson.

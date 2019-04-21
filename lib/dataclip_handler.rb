@@ -7,6 +7,10 @@ module Lita
       config :reddit_comments_url
       config :requests_over_time_by_city_url
 
+      http.get "/" do |request, response|
+        response.body << "Hello, world!"
+      end
+
       route(/top\ssources\sof\sclicks/) do |response|
         url = config.top_clicks_all_time_url
         http_response = HTTParty.get(url, follow_redirects: true)
@@ -78,10 +82,6 @@ module Lita
         response.reply("Sorry, I encountered an error: **#{err}**")
         raise err
       end
-    end
-
-    http.get "/" do |request, response|
-      response.body << "Hello, world!"
     end
 
     Lita.register_handler(DataclipHandler)

@@ -8,9 +8,9 @@ A chat bot built using [Lita](https://www.lita.io/)
 - `REDIS_URL` url representing Redis connection configuration
 - `DOT_ADMIN_ID` string representing the admin bot user ID on Slack
 - `DOT_SLACK_TOKEN` access token to the Slack API
-- `DOT_URL1` url referencing dataclip for [Top clicks](#top-clicks) command
-- `DOT_URL2` url referencing dataclip for [Reddit](#reddit) command
-- `DOT_URL3` url referencing dataclip for [City Requests](#requests) command
+- `DOT_URL1` url referencing dataclip for **Top clicks** command
+- `DOT_URL2` url referencing dataclip for **Reddit** command
+- `DOT_URL3` url referencing dataclip for **City Requests** command
 
 ## Available commands
 

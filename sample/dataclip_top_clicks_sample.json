@@ -1,0 +1,21 @@
+{
+  "title": "Top source of clicks all time",
+  "values": [
+    ["msr-reactor-2.5l-stove-system", 120],
+    ["browse-kits", 93],
+    ["the-camper-kit", 92],
+    ["facebook", 92],
+    ["the-chemex-kit", 90],
+    ["support", 83],
+    ["chemex-classic-6-cup-coffee-maker", 81],
+    ["the-french-press-kit", 66],
+    ["contact-us", 58],
+    ["the-pour-over-kit", 50]
+  ],
+  "fields": ["button_id", "clicks"],
+  "types": [1043, 20],
+  "type_names": ["text", "integer"],
+  "started_at": "2019-04-21 02:10:09 +0000",
+  "finished_at": "2019-04-21 02:10:09 +0000",
+  "checksum": "cf491f4dd64f044eb2e41f04676f5dca"
+}

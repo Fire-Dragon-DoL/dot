@@ -1,1 +1,1 @@
-worker: bundle exec lita start
+web: bundle exec lita start

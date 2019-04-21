@@ -80,6 +80,10 @@ module Lita
       end
     end
 
+    http.get "/" do |request, response|
+      response.body << "Hello, world!"
+    end
+
     Lita.register_handler(DataclipHandler)
   end
 end

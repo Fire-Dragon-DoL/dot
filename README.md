@@ -4,6 +4,7 @@ A chat bot built using [Lita](https://www.lita.io/)
 
 ## Required environment variables
 
+- `PORT` port for HTTP routes of lita, defaults to 3000 if omitted
 - `REDIS_URL` url representing Redis connection configuration
 - `DOT_ADMIN_ID` string representing the admin bot user ID on Slack
 - `DOT_SLACK_TOKEN` access token to the Slack API

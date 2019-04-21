@@ -15,6 +15,7 @@ Lita.configure do |config|
   config.adapters.slack.unfurl_links = true
   config.adapters.slack.unfurl_media = true
 
+  config.http.port = ENV["PORT"] || 3000
   config.redis = { url: ENV.fetch("REDIS_URL") }
 
   dataclip = config.handlers.dataclip_handler

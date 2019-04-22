@@ -16,9 +16,9 @@ module Lita
           fetch("values").
           lazy.
           map { |arr| ({ week: arr[0], city: arr[1], reqs: arr[2] }) }.
-          sort_by { |entry| entry.week }.
+          sort_by { |entry| entry[:week] }.
           reverse.
-          select { |entry| entry.city == selected_city }.
+          select { |entry| entry[:city] == selected_city }.
           first
 
         if data.nil?
@@ -64,12 +64,12 @@ module Lita
           fetch("values").
           lazy.
           map { |arr| ({ title: arr[27], created: arr[32] }) }.
-          sort_by { |comment| comment.created }.
+          sort_by { |comment| comment[:created] }.
           reverse.
           take(1).
           first
 
-        msg = "The latest reddit topic is:\n\n#{data.title}"
+        msg = "The latest reddit topic is:\n\n#{data[:title]}"
 
         response.reply(msg)
       rescue => err

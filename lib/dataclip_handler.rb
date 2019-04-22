@@ -3,12 +3,38 @@ require "ostruct"
 module Lita
   module Handlers
     class DataclipHandler < Handler
+      config :requests_over_time_by_city_url
       config :top_clicks_all_time_url
       config :reddit_comments_url
-      config :requests_over_time_by_city_url
 
-      http.get "/" do |request, response|
-        response.body << "Hello, world!"
+      route(/requests\sfor\s(.+)\slast\sweek/, command: true) do |response|
+        url = config.requests_over_time_by_city_url
+        selected_city = response.matches[0].first.to_s.downcase
+        http_response = HTTParty.get(url, follow_redirects: true)
+        data = MultiJson.
+          load(http_response.body).
+          fetch("values").
+          lazy.
+          map do |arr|
+            OpenStruct.new(week: arr[0], city: arr[1], reqs: arr[2])
+          end.
+          sort_by { |entry| entry.week }.
+          reverse.
+          select { |entry| entry.city == selected_city }.
+          first
+
+        if data.nil?
+          msg = "There have been *no requests* for " \
+                "#{selected_city.capitalize} last week"
+        else
+          msg = "#{selected_city.capitalize} received *#{data.reqs}* " \
+                "requests last week"
+        end
+
+        response.reply(msg)
+      rescue => err
+        response.reply("Sorry, I encountered an error: **#{err}**")
+        raise err
       end
 
       route(/top\ssources\sof\sclicks/) do |response|
@@ -53,34 +79,8 @@ module Lita
         raise err
       end
 
-      route(/requests\sfor\s(.+)\slast\sweek/, command: true) do |response|
-        url = config.requests_over_time_by_city_url
-        selected_city = response.matches[0].first.to_s.downcase
-        http_response = HTTParty.get(url, follow_redirects: true)
-        data = MultiJson.
-          load(http_response.body).
-          fetch("values").
-          lazy.
-          map do |arr|
-            OpenStruct.new(week: arr[0], city: arr[1], reqs: arr[2])
-          end.
-          sort_by { |entry| entry.week }.
-          reverse.
-          select { |entry| entry.city == selected_city }.
-          first
-
-        if data.nil?
-          msg = "There have been *no requests* for " \
-                "#{selected_city.capitalize} last week"
-        else
-          msg = "#{selected_city.capitalize} received *#{data.reqs}* " \
-                "requests last week"
-        end
-
-        response.reply(msg)
-      rescue => err
-        response.reply("Sorry, I encountered an error: **#{err}**")
-        raise err
+      http.get "/" do |request, response|
+        response.body << "Hello, world!"
       end
     end
 

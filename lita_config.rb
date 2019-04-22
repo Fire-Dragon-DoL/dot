@@ -10,10 +10,6 @@ Lita.configure do |config|
 
   config.robot.adapter = :slack
   config.adapters.slack.token = ENV.fetch("DOT_SLACK_TOKEN")
-  config.adapters.slack.link_names = true
-  config.adapters.slack.parse = "full"
-  config.adapters.slack.unfurl_links = true
-  config.adapters.slack.unfurl_media = true
 
   config.http.port = ENV["PORT"] || 3000
   config.redis = { url: ENV.fetch("REDIS_URL") }

@@ -11,8 +11,8 @@ module Lita
         url = config.requests_over_time_by_city_url
         selected_city = response.matches[0].first.to_s.downcase
         http_response = HTTParty.get(url, follow_redirects: true)
-        data = MultiJson.
-          load(http_response.body).
+        data = JSON.
+          parse(http_response.body).
           fetch("values").
           lazy.
           map do |arr|
@@ -40,8 +40,8 @@ module Lita
       route(/top\ssources\sof\sclicks/) do |response|
         url = config.top_clicks_all_time_url
         http_response = HTTParty.get(url, follow_redirects: true)
-        data = MultiJson.
-          load(http_response.body).
+        data = JSON.
+          parse(http_response.body).
           fetch("values").
           lazy.
           map { |arr| OpenStruct.new(name: arr[0], clicks: arr[1]) }.
@@ -61,8 +61,8 @@ module Lita
       route(/latest\sreddit\stopic/) do |response|
         url = config.reddit_comments_url
         http_response = HTTParty.get(url, follow_redirects: true)
-        data = MultiJson.
-          load(http_response.body).
+        data = JSON.
+          parse(http_response.body).
           fetch("values").
           lazy.
           map { |arr| OpenStruct.new(title: arr[27], created: arr[32]) }.

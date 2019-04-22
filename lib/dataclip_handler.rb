@@ -15,9 +15,7 @@ module Lita
           parse(http_response.body).
           fetch("values").
           lazy.
-          map do |arr|
-            OpenStruct.new(week: arr[0], city: arr[1], reqs: arr[2])
-          end.
+          map { |arr| ({ week: arr[0], city: arr[1], reqs: arr[2] }) }.
           sort_by { |entry| entry.week }.
           reverse.
           select { |entry| entry.city == selected_city }.
@@ -27,7 +25,7 @@ module Lita
           msg = "There have been *no requests* for " \
                 "#{selected_city.capitalize} last week"
         else
-          msg = "#{selected_city.capitalize} received *#{data.reqs}* " \
+          msg = "#{selected_city.capitalize} received *#{data[:reqs]}* " \
                 "requests last week"
         end
 
@@ -44,12 +42,12 @@ module Lita
           parse(http_response.body).
           fetch("values").
           lazy.
-          map { |arr| OpenStruct.new(name: arr[0], clicks: arr[1]) }.
+          map { |arr| ({ name: arr[0], clicks: arr[1] }) }.
           take(5)
 
         msg = "The top 5 sources of clicks of all time are:\n"
         data.each do |source|
-          msg << "- *#{source.name}* with #{source.clicks} clicks\n"
+          msg << "- *#{source[:name]}* with #{source[:clicks]} clicks\n"
         end
 
         response.reply(msg)
@@ -65,7 +63,7 @@ module Lita
           parse(http_response.body).
           fetch("values").
           lazy.
-          map { |arr| OpenStruct.new(title: arr[27], created: arr[32]) }.
+          map { |arr| ({ title: arr[27], created: arr[32] }) }.
           sort_by { |comment| comment.created }.
           reverse.
           take(1).

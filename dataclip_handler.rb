@@ -1,5 +1,3 @@
-require "ostruct"
-
 module Lita
   module Handlers
     class DataclipHandler < Handler

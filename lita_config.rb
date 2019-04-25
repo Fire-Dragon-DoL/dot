@@ -1,4 +1,4 @@
-require_relative "./lib/dataclip_handler"
+require_relative "./dataclip_handler"
 
 Lita.configure do |config|
   config.robot.name = "Dot"

@@ -1,9 +1,27 @@
 module Lita
   module Handlers
     class DataclipHandler < Handler
-      config :requests_over_time_by_city_url
       config :top_clicks_all_time_url
+      config :requests_over_time_by_city_url
       config :reddit_comments_url
+
+      route(/top\ssources\sof\sclicks/, command: true) do |response|
+        url = config.top_clicks_all_time_url
+        http_response = HTTParty.get(url, follow_redirects: true)
+        data = JSON.
+          parse(http_response.body).
+          fetch("values").
+          lazy.
+          map { |arr| ({ name: arr[0], clicks: arr[1] }) }.
+          take(5)
+
+        msg = "The top 5 sources of clicks of all time are:\n"
+        data.each do |source|
+          msg << "- *#{source[:name]}* with #{source[:clicks]} clicks\n"
+        end
+
+        response.reply(msg)
+      end
 
       route(/requests\sfor\s(.+)\slast\sweek/, command: true) do |response|
         url = config.requests_over_time_by_city_url
@@ -25,24 +43,6 @@ module Lita
         else
           msg = "#{selected_city.capitalize} received *#{data[:reqs]}* " \
                 "requests last week"
-        end
-
-        response.reply(msg)
-      end
-
-      route(/top\ssources\sof\sclicks/, command: true) do |response|
-        url = config.top_clicks_all_time_url
-        http_response = HTTParty.get(url, follow_redirects: true)
-        data = JSON.
-          parse(http_response.body).
-          fetch("values").
-          lazy.
-          map { |arr| ({ name: arr[0], clicks: arr[1] }) }.
-          take(5)
-
-        msg = "The top 5 sources of clicks of all time are:\n"
-        data.each do |source|
-          msg << "- *#{source[:name]}* with #{source[:clicks]} clicks\n"
         end
 
         response.reply(msg)

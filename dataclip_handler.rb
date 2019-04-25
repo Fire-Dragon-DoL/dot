@@ -32,7 +32,7 @@ module Lita
         response.reply(msg)
       end
 
-      route(/top\ssources\sof\sclicks/) do |response|
+      route(/top\ssources\sof\sclicks/, command: true) do |response|
         url = config.top_clicks_all_time_url
         http_response = HTTParty.get(url, follow_redirects: true)
         data = JSON.

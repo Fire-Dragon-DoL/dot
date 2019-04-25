@@ -30,9 +30,6 @@ module Lita
         end
 
         response.reply(msg)
-      rescue => err
-        response.reply("Sorry, I encountered an error: **#{err}**")
-        raise err
       end
 
       route(/top\ssources\sof\sclicks/) do |response|
@@ -51,9 +48,6 @@ module Lita
         end
 
         response.reply(msg)
-      rescue => err
-        response.reply("Sorry, I encountered an error: **#{err}**")
-        raise err
       end
 
       route(/latest\sreddit\stopic/) do |response|
@@ -72,9 +66,6 @@ module Lita
         msg = "The latest reddit topic is:\n\n#{data[:title]}"
 
         response.reply(msg)
-      rescue => err
-        response.reply("Sorry, I encountered an error: **#{err}**")
-        raise err
       end
 
       http.get "/" do |request, response|

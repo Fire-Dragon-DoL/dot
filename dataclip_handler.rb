@@ -5,7 +5,7 @@ module Lita
       config :requests_over_time_by_city_url
       config :reddit_comments_url
 
-      route(/top\ssources\sof\sclicks/, command: true) do |response|
+      route(/products\shave\sthe\smost\sclicks/, command: true) do |response|
         url = config.top_clicks_all_time_url
         http_response = HTTParty.get(url, follow_redirects: true)
         data = JSON.
@@ -15,7 +15,7 @@ module Lita
           map { |arr| ({ name: arr[0], clicks: arr[1] }) }.
           take(5)
 
-        msg = "The top 5 sources of clicks of all time are:\n"
+        msg = "The products with the most clicks are:\n"
         data.each do |source|
           msg << "- *#{source[:name]}* with #{source[:clicks]} clicks\n"
         end
